@@ -1,0 +1,34 @@
+/* Stile per il corpo del documento */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #c90101;
+    margin: 0;
+    padding: 0;
+}
+head {background-color: #0074d9;}
+/* Stile per gli elementi di intestazione (h1, h2, ecc.) */
+h1, h2, h3 {
+    color: #333;
+}
+
+/* Stile per i link */
+a {
+    color: #0074d9;
+    text-decoration: none;
+}
+
+/* Stile per i pulsanti */
+.button {
+    background-color: #ff5733;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Stile per le immagini */
+img {
+    max-width: 100%;
+    height: auto;
+}

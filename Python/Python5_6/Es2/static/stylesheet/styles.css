@@ -1,0 +1,53 @@
+body {
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    position: relative;
+}
+
+.container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 500px; /* larghezza del container */
+    margin: 40px auto; /* centra il container orizzontalmente */
+  }
+
+h1 {
+    font-family: 'UnifrakturCook', cursive;
+    font-size: 2em;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.logo {
+    width: 100px; /* ridimensiona il logo a 30px di larghezza */
+    height: auto; /* ridimensiona il logo a 30px di altezza */
+    margin: -5px; /* aggiunge un margine di 10px attorno al logo */
+    float: right; /* fa flottare il logo a destra */
+  }
+  .logo-container {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: inline-block;
+    max-width: 100px; /* impostare un limite massimo alla larghezza */
+    max-height: 100px; /* impostare un limite massimo all'altezza */
+    background-color: #fff; /* opzionale, per creare un background per il logo */
+    border: 1px solid #ddd; /* opzionale, per creare un bordo per il logo */
+    border-radius: 5px; /* opzionale, per creare un bordo arrotondato per il logo */
+    padding: 5px; /* opzionale, per aggiungere spazio tra il logo e il bordo */
+}
+.button-container {
+    margin-top: 20px;
+}
+
+img {
+    max-width: 100px;
+    height: auto;
+}

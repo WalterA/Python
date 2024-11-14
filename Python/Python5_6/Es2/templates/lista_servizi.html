@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizza Nome e Cognome</title>
+    <style>
+        body {
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            position: relative;
+        }
+
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 600px;
+            position: relative;
+        }
+
+        h1 {
+            font-family: 'UnifrakturCook', cursive;
+            font-size: 2em;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .logo {
+            position: absolute;
+            top: 1px;
+            left: 10px;
+        }
+
+        .button-container {
+            margin-top: 20px;
+        }
+
+        img {
+            max-width: 100px;
+            height: auto;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        table {
+            width: 50%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 18px;
+            text-align: left;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 12px 15px;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+</head>
+<body>
+    <div class="container">
+        <img src="/static/nuovo.png">
+        <h1>Benvenuto {{nome}} {{cognome}}</h1>
+        <p>Cosa vuoi fare:</p>
+        <title>Tabella Servizi</title>
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Link</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Consulta ordini vecchi</td>
+                <td><a href="/consulta_old">Consulta</a></td>
+            </tr>
+            <tr>
+                <td>Consulta ordini nuovi</td>
+                <td><a href="/consulta_new">Consulta</a></td>
+            </tr>
+ 
+        </tbody>
+    </table>
+        
+    </div>
+</body>
+</html>

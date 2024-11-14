@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizza Nome e Cognome</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: black;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center; 
+        }
+        h1 {
+            font-family: 'UnifrakturCook', cursive;
+            font-size: 2em;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <img src="/static/nuovo.png" width="400" height="400">
+        <h1>Benvenuto {{nome}} {{cognome}}</h1>
+        <p>I tuoi ordini VECCHI sono:</p>
+        <title>Tabella Prodotti</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        table {
+            width: 50%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 18px;
+            text-align: left;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 12px 15px;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>PRODOTTO</th>
+                <th>PREZZO</th>
+                <th>DATA</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Telefono</td>
+                <td>299,99 €</td>
+                <td>15/09/2024</td>
+            </tr>
+            <tr>
+                <td>Portatile</td>
+                <td>899,99 €</td>
+                <td>10/09/2024</td>
+            </tr>
+            <tr>
+                <td>Tablet</td>
+                <td>199,99 €</td>
+                <td>01/09/2024</td>
+            </tr>
+        </tbody>
+    </table>
+        
+    </div>
+</body>
+</html>

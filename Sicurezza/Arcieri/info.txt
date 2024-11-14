@@ -1,0 +1,5 @@
+creazione environment
+python -m venv .venv
+e poi:
+. .venv/bin/activate
+ e poi fare pip install pycryptodome

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITS</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheet/styles.css') }}">
+    
+    
+</head>
+<body>
+        <div class="container">
+            <div class="logo-container">
+                <img src="/static/nuovo.png" class="logo" alt="Logo">
+                </div>
+            
+            <h1>Inserisci il tuo Nome e Cognome</h1>
+            
+            
+        <div>
+            <form action="/gestisci_login" method="get">
+                <div class="form-group">
+                    <label for="nome">Nome:</label>
+                    <input type="text" id="nome" name="nome" required>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                
+                </div>
+                <div style="margin-top: 20px;"> <!-- aggiungi un margine superiore -->
+                    <input type="submit" value="Invia">
+                </div>
+            </form>
+            <div style="margin-top: 20px;"> <!-- aggiungi un margine superiore -->
+                Non sei registrato?<a href="/registrati">Registrati</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

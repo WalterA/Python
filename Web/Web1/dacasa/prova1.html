@@ -1,0 +1,14 @@
+<!DOCTYPE html> 
+<html> 
+<body> 
+<h2>JavaScript HTML Events</h2> 
+Inserisci il tuo nome: <input type="text" id="fname" onchange="upperCase()"> 
+<p>Quando metti il prompt fuori dalla casella di testo scatta l’evento onchange.</p> 
+<script> 
+function upperCase() { 
+const x = document.getElementById("fname"); 
+x.value = x.value.toUpperCase(); 
+} 
+</script> 
+</body> 
+</html>

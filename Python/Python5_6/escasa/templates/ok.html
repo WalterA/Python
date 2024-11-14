@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizza Nome e Cognome</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: black;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            background-image: url(data:image/jpeg;base64,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);
+            background-size: cover; /* Rende l'immagine a piena dimensione del contenitore */
+            background-position: center; /* Centra l'immagine */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center; 
+        }
+        h1 {
+            font-family: 'UnifrakturCook', cursive;
+            font-size: 2em;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+   
+    <div class="container">
+        <img src="/static/ok.jpeg" >
+        <h1>Accesso permesso</h1>
+        <p>Nome: {{ nome }}</p>
+        <p>Cognome: {{ cognome }}</p>
+        <a href="/visualizza1?nome={{nome}}&cognome={{cognome}}">
+            <button>Visualizza</button>
+        </a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITS</title>
+    <style>
+        body {
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            position: relative;
+        }
+
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 600px;
+            position: relative;
+        }
+
+        h1 {
+            font-family: 'UnifrakturCook', cursive;
+            font-size: 2em;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .logo {
+            position: absolute;
+            top: 1px;
+            left: 10px;
+        }
+
+        .button-container {
+            margin-top: 20px;
+        }
+
+        img {
+            max-width: 100px;
+            height: auto;
+        }
+    </style>
+    
+</head>
+<body>
+   <h1>FORM DI REGISTRAZIONE</h1>
+   <center>
+    <img src="/static/nuovo.png" width="400" height="400">
+            <form action="/gestisci_reg" method="get">
+                <div class="form-group">
+                    <label for="nome">Nome:</label>
+                    <input type="text" id="nome" name="nome" required>
+                    <label for="cognome">Cognome:</label>
+                    <input type="text" id="cognome" name="cognome" required>
+                   
+                <input type="submit" value="Invia">
+            </form>
+        </div>
+    </div>
+</center>
+</body>
+</html>
