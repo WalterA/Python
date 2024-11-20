@@ -77,7 +77,7 @@ def read_in_db(cur,sql_select):
         #    print(row)
         #    row = cur.fetchone()
     except (Exception, psycopg2.DatabaseError) as error:
-
+        print(f"Errore durante l'esecuzione della query: {error}")
         cur = None
         conn = None
         return -1

@@ -102,6 +102,7 @@ while True:
 if auth:
     try:
         menu2 = {"1":CercaAutomobile}#"2":CercaMotociclette, "3":ControllaVendite, "4" : Exit}
+        print("1: Cerca automobile")
         scelta = input("Fai la scelta: ")
         if scelta in menu2:
             if scelta == "1":

@@ -9,9 +9,18 @@ mydb = db.connect()
 if mydb is None:
     print("Errore connessione al DB")
     sys.exit()
+else:
+    print("Connessione al DB riuscita")
     
 @api.route('/CercaAutomobile', methods=['GET'])
 def controlloAuto():
+    mydb = db.connect()
+    if mydb is None:
+        print("Errore connessione al DB")
+        sys.exit()
+    else:
+        print("Connessione al DB riuscita")
+    
     content_type = request.headers.get('Content-Type')
     print("Ricevuta chiamata " + content_type)
     
@@ -20,7 +29,8 @@ def controlloAuto():
             modello = request.json.get('modello')
             filiale = request.json.get('Filiale')
             print(f"{modello}+{filiale}")
-            sQuery = f"SELECT * FROM automobili WHERE modello = '{modello}'and magazzino = '{filiale}' and disponibile = 'true'"
+            sQuery = f"select * from automobili where modello = '{modello}' and magazzino = '{filiale}' and disponibile = true"
+            print(sQuery)
             iRetValue = db.read_in_db(mydb, sQuery)
             print(iRetValue)
             if iRetValue == 1:
