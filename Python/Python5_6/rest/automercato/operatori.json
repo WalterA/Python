@@ -1,0 +1,14 @@
+{
+    "1": {
+        "Id": "1",
+        "Username": "q",
+        "Password": "q",
+        "Filiare": "Filiale 1"
+    },
+    "2": {
+        "Id": "2",
+        "Username": "w",
+        "Password": "w",
+        "Filiale": "Filiale 2"
+    }
+}
