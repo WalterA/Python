@@ -28,7 +28,8 @@ def Controlla():
             if iRetValue > 0:  # Verifica che ci siano righe da leggere
                 vendite = []
                 while True:
-                    sValue = db.read_next_row(mydb)
+                    sValue = db.read_next_row(mydb) 
+                    
                     if sValue is None:
                         break
                     if len(sValue) >= 4:
