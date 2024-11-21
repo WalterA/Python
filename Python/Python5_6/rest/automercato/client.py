@@ -5,28 +5,65 @@ from myjson import *
 
 base_url = "https://127.0.0.1:8080"
 sFile = r"C:\Users\nicol\OneDrive\Desktop\allrepo\Progetti\Python\Python\Python5_6\rest\automercato\operatori.json"
-"""CercaAutomobile: il servizio fornisce l'elenco delle automobili che 
-rispecchiano le richieste del cittadino che si rivolge alla filiale.
-Ciascuna filiale è anche magazzino e quindi il rappresentante della filiale comunica 
-al cittadino se l'automobile è disponibile per essere vista oppure è disponibile in un altro magazzino"""
-def CercaAutomobile():
-    print("Dimmi il modello dell'auto: ")
-    modello = input("Modello: ")
-    filiale = input("Quale Filiale ti interessa? ")
-    api_url = base_url + "/CercaAutomobile"
+def ControllaVendite():
+    print("Dimmi da che data vuoi controllare: ")
+    inizio = input("Inserisci la data di inizio (formato YYYY-MM-DD): ")
+    fine = input("Inserisci la data di fine (formato YYYY-MM-DD): ")
+    api_url = base_url + "/ControllaVendite"
+    try:
+        data={"inizio":inizio,"fine":fine}
+        response= requests.get(api_url,json=data,verify=False)
+        if response.status_code == 200:
+            data = response.json()
+            if data['Esito'] == 'ok':
+                print("Vendite per periodo:")
+                print(json.dumps(data['Dati'], indent=4))
+            else:
+                print("Errore:", data['Messaggio'])
+        else:
+            print(f"Errore nella richiesta: {response.status_code}")
+    except ValueError:
+            print("Errore: la risposta del server non è in formato JSON.")
+        
+    except requests.exceptions.RequestException as e:
+        print(f"Errore durante la comunicazione con il server: {e}")
+    except Exception as e:
+        print(f"Si è verificato un errore imprevisto: {e}")
+    
+    
+def Motocicletta():
+    print("Dimmi il modello della Motocicletta: ")
+    modello = input("Modello: ").title()
+    filiale = input("Quale Filiale ti interessa? ").capitalize()
+    api_url = base_url + "/CercaMotocicletta"
     
     try:
         data = {"modello": modello, "Filiale":filiale}
         response = requests.get(api_url, json=data, verify=False)
-        print(response.content)
         try:
             jResponse = response.json()
             if jResponse.get('Esito') == "ok":
-                stato = jResponse.get('Stato', 'Stato non disponibile')
-                print(f"Auto disponibile. Stato: {stato}")
+                print(f"Motociclietta disponibile. Dati:{jResponse.get('dati')}")
+                print("Comprare la motocicletta?")
+                scelta=input("Scrivere si o no: ").lower()
+                if scelta == "si":
+                    scelta="motociclette"
+                    risultato=Compra(scelta)
+                    if risultato == 1:
+                        print("Comprata.")
+                    else:
+                        print("Errore.")
+                else:
+                    while True:
+                        print("1:Continua la ricerca.\n2:Exit")
+                        menu3={"1":Motocicletta,"2":Exit}
+                        scelta = input("Fai la scelta: ")
+                        if scelta == "1" or scelta == "2":
+                            menu3[scelta]()
+                        else:
+                            print("Scelta errata, riprova.")
             else:
-                print("Auto non disponibile.")
-        
+                print("Motocicletta non disponibile.")
         except ValueError:
             print("Errore: la risposta del server non è in formato JSON.")
         
@@ -35,6 +72,61 @@ def CercaAutomobile():
     except Exception as e:
         print(f"Si è verificato un errore imprevisto: {e}")
 
+
+def Automobile():
+    print("Dimmi il modello dell'auto: ")
+    modello = input("Modello: ").title()
+    filiale = input("Quale Filiale ti interessa? ").capitalize()
+    api_url = base_url + "/CercaAutomobile"
+    
+    try:
+        data = {"modello": modello, "Filiale":filiale}
+        response = requests.get(api_url, json=data, verify=False)
+        try:
+            jResponse = response.json()
+            if jResponse.get('Esito') == "ok":
+                print(f"Auto disponibile.Dati: {jResponse.get('dati')}")
+                print("Comprare l'auto?")
+                scelta=input("Scrivere si o no: ").lower()
+                if scelta == "si":
+                    scelta="automobili"
+                    risultato=Compra(scelta, modello, filiale)
+                    if risultato == 1:
+                        print("Comprata.")
+                    else:
+                        print("Errore.")
+                else:
+                    while True:
+                        print("1:Continua la ricerca.\n2:Exit")
+                        menu3={"1":Automobile,"2":Exit}
+                        scelta = input("Fai la scelta: ")
+                        if scelta == "1" or scelta == "2":
+                            menu3[scelta]()
+                        else:
+                            print("Scelta errata, riprova.")
+            else:
+                print("Auto non disponibile.")
+        except ValueError:
+            print("Errore: la risposta del server non è in formato JSON.")
+        
+    except requests.exceptions.RequestException as e:
+        print(f"Errore durante la comunicazione con il server: {e}")
+    except Exception as e:
+        print(f"Si è verificato un errore imprevisto: {e}")
+        
+def Compra(scelta: str, modello:str, filiale:str):
+    api_url = base_url + "/Compra"
+    try:
+        response = requests.patch(api_url, json=[scelta,modello, filiale], verify=False)
+        jResponse = response.json()
+        if jResponse.get('Esito') == "ok":
+            return 1
+        else:
+            return -1
+    except requests.exceptions.RequestException as e:
+        print(f"Errore durante la comunicazione con il server: {e}")
+    except Exception as e:
+        print(f"Si è verificato un errore imprevisto: {e}")
 
     
 def Reg():
@@ -47,17 +139,13 @@ def Acc():
     operatore = Operatore()
     api_url = base_url + "/controllo_filiera"
     auth = False
-    stato = None
-
     try:
         response = requests.get(api_url, json=operatore, verify=False)
-        print(response.content)
         try:
             jResponse = response.json()
             if jResponse.get('Esito') == "ok":
                 auth = True
-                stato = jResponse.get('Stato', 'Stato non disponibile')
-                print(f"Autenticato con successo. Stato: {stato}")
+                print(f"Autenticato con successo.")
             else:
                 print("Autenticazione fallita.")
         
@@ -90,9 +178,9 @@ while True:
                 print(f"Operatore: {operatore}, Autenticazione: {auth}")
                 if auth:
                     print("Autenticazione completata con successo!")
-                    break  # Uscita dal ciclo quando l'autenticazione è riuscita
+                    break 
             else:
-                menu1[scelta]()  # Chiamata alle altre funzioni
+                menu1[scelta]()
         else:
             print("Scelta non valida, riprova.")
     
@@ -100,21 +188,17 @@ while True:
         print(f"Errore: {e}. Riprovare.")
         
 if auth:
-    try:
-        menu2 = {"1":CercaAutomobile}#"2":CercaMotociclette, "3":ControllaVendite, "4" : Exit}
-        print("1: Cerca automobile")
-        scelta = input("Fai la scelta: ")
-        if scelta in menu2:
-            if scelta == "1":
+    while True:
+        try:
+            menu2 = {"1":Automobile,"2":Motocicletta, "3":ControllaVendite, "4" : Exit}
+            print("1: Cerca automobile\n2:Motocicletta\n4 : Exit")
+            scelta = input("Fai la scelta: ")
+            if scelta in menu2:
                 menu2[scelta]()
-                
-                if auth:
-                    pass  # Uscita dal ciclo quando l'autenticazione è riuscita
             else:
-                menu1[scelta]()  # Chiamata alle altre funzioni
-        else:
-            print("Scelta non valida, riprova.")
-            
-    except Exception as e:
-        print(f"Errore: {e}. Riprovare.")
+                print("Scelta non valida, riprova.")
+        except Exception as e:
+            print(f"Errore: {e}. Riprovare.")
+else:
+    print("Non sei autorizzato.")
     
