@@ -81,15 +81,28 @@ def read_in_db(cur,sql_select):
         cur = None
         conn = None
         return -1
-
+    
 def read_next_row(cur):
     try:
-        row = cur.fetchone()
-        return [0,row]
-    except:
+        if cur.rowcount == 1:
+            row = cur.fetchone()
+            if row:
+                column_names = [desc[0] for desc in cur.description]
+                return dict(zip(column_names, row))
+        elif cur.rowcount > 1:
+            rows = cur.fetchall()
+            if rows:
+                column_names = [desc[0] for desc in cur.description]
+                return [dict(zip(column_names, row)) for row in rows]
+        else:
+            row = None
+        return row
+    except Exception as e:
+        print(f"Errore durante la lettura: {e}")
         cur = None
         conn = None
-        return [1,None]
+        return None
+
 
 def close(cur):
     global conn

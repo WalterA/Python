@@ -10,5 +10,17 @@
         "Username": "w",
         "Password": "w",
         "Filiale": "Filiale 2"
+    },
+    "3": {
+        "Id": "3",
+        "Username": "tre",
+        "Password": "tre",
+        "Filiale": "Filiale 6"
+    },
+    "7": {
+        "Id": "7",
+        "Username": "Yt",
+        "Password": "R1",
+        "Filiale": "Filiale 1"
     }
 }

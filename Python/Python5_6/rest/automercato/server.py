@@ -17,7 +17,7 @@ def Controlla():
         print("Connessione al DB riuscita")
         
     
-    content_type = request.headers.get('Content-Type')   #da controllareeeeeeeeeeeeeeeeeeeeeeeeeee
+    content_type = request.headers.get('Content-Type')
     print("Ricevuta chiamata " + content_type)
     if content_type == 'application/json':
         try:
@@ -25,24 +25,10 @@ def Controlla():
             fine = request.json.get('fine')
             sQuery=f"select * from vendite where data_vendita between '{inizio}' and '{fine}';"
             iRetValue = db.read_in_db(mydb, sQuery)
-            if iRetValue > 0:  # Verifica che ci siano righe da leggere
-                vendite = []
-                while True:
-                    sValue = db.read_next_row(mydb) 
-                    
-                    if sValue is None:
-                        break
-                    if len(sValue) >= 4:
-                        vendite.append({
-                            'filiale': sValue[0],
-                            'tipo': sValue[1],
-                            'data_vendita': sValue[2].strftime('%Y-%m-%d'),
-                            'numero_vendite': sValue[3]
-                        })
-                    else:
-                        # Gestisci il caso in cui la riga non ha abbastanza colonne
-                        print(f"Riga non valida (mancano colonne): {sValue}")
-                return {'Esito': 'ok', "dati": vendite}
+            if iRetValue > 0:
+                sValue = db.read_next_row(mydb)
+                print(sValue)
+                return {'Esito': 'ok', "dati": sValue}
             else:
                 return {'Esito': 'errore'}
         except Exception as e:
@@ -179,7 +165,6 @@ def controlloOP():
     else:
         print("Connessione al DB riuscita")
     content_type = request.headers.get('Content-Type')
-    print("Ricevuta chiamata " + content_type)
     if (content_type == 'application/json'):
         try:
             dati = request.json
