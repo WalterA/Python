@@ -1,15 +1,79 @@
+
 import re
 import requests
 import sys
 from myjson import *
 from datetime import datetime
+def Ritorno1():
+    menu1 = {"1": Reg, "2": Acc, "3": Exit}
+    while True:
+        try:
+            print("Benvenuto, scegli cosa vuoi fare:")
+            print("1 : Registra nuovo operatore.\n2 : Accedi al portale.\n3 : Esci.")
+            scelta = input("Fai la scelta: ")
 
+            if scelta in menu1:
+                if scelta == "2":
+                    operatore, auth = menu1[scelta]()
+                    print(f"Operatore: {operatore}, Autenticazione: {auth}")
+                    if auth:
+                        print("Autenticazione completata con successo!")
+                        return auth 
+                else:
+                    menu1[scelta]()
+            else:
+                print("Scelta non valida, riprova.")
+        
+        except Exception as e:
+            print(f"Errore: {e}. Riprovare.")
+    
+def Ritorno(auth):        
+    if auth:
+        while True:
+            try:
+                menu2 = {"1" : Automobile,"2" : Motocicletta, "3" : ControllaVendite, "4" : Exit}
+                print("1 : Cerca automobile.\n2 : Motocicletta.\n3 : ControllaVendite.\n4 : Exit.")
+                scelta = input("Fai la scelta: ")
+                if scelta in menu2:
+                    menu2[scelta]()
+                else:
+                    print("Scelta non valida, riprova.")
+            except Exception as e:
+                print(f"Errore: {e}. Riprovare.")
+    else:
+        print("Non sei autorizzato.")
 base_url = "https://127.0.0.1:8080"
+""" # volevo aggiungere un nuovo elemento per auto e moto ma mi son stufato
+
+api_url = base_url + "/addVeicolo"
+def addVeicolo():
+    print("Quale veicolo? 1 : Automobile\n2 : Motocicletta ")
+    n = input("Inserisci il numero della scela: ")
+    if n == 1:
+        n="automobili"
+    else:
+        n="motociclette"
+    print("")
+    data={"Id":id,"Filiale": filiale}
+    response= requests.patch(api_url,json=data,verify=False)
+    try:
+        if response.status_code == 200:
+            data = response.json()
+            if data.get('Esito') == "ok":
+                return data.get('Messaggio')
+            else:
+                return data.get('Messaggio')
+        else:
+            return "Qualcosa è andato storto "+str(risultato)
+    except Exception as e:
+        print(f"Si è verificato un errore imprevisto: {e}")
+        """
+
 def Operatore():
     while True:
         try:
             id = int(input("Inserisci id (solo numeri interi): "))
-            break  # Esce dal ciclo se l'id è un intero valido
+            break  
         except ValueError:
             print("Errore: l'ID deve essere un numero intero valido.")
 
@@ -30,7 +94,7 @@ def RegistraOperatore (sFile):
     while True:
         try:
             id = int(input("Inserisci id (solo numeri interi): "))
-            break  # Esce dal ciclo se l'id è un intero valido
+            break 
         except ValueError:
             print("Errore: l'ID deve essere un numero intero valido.")
 
@@ -38,21 +102,29 @@ def RegistraOperatore (sFile):
 
     while True:
         password = input("Inserisci la password (almeno una lettera maiuscola e un numero): ")
-        # Controlla che la password abbia almeno una maiuscola e un numero
         if re.search(r'[A-Z]', password) and re.search(r'\d', password):
-            break  # Esce dal ciclo se la password è valida
+            break
         else:
             print("Errore: la password deve contenere almeno una lettera maiuscola e un numero.")
     id=str(id)
     filiale = input("Inserisci la tua filiale: ").capitalize()
     risultato =  JsonSerializeAppend({"Id":id,"Username":username,"Password":password,"Filiale": filiale},sFile)
     if risultato == 0:
-        api_url = base_url + "/addop"#da finireeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
-        response= requests.get(api_url,json=data,verify=False)
-        return "Inserito con successo"
-    else:
-        return "Qualcosa è andato storto "+str(risultato)
-    
+        api_url = base_url + "/addop"
+        data={"Id":id,"Filiale": filiale}
+        response= requests.patch(api_url,json=data,verify=False)
+        try:
+            if response.status_code == 200:
+                data = response.json()
+                if data.get('Esito') == "ok":
+                    return data.get('Messaggio')
+                else:
+                    return data.get('Messaggio')
+            else:
+                return "Qualcosa è andato storto "+str(risultato)
+        except Exception as e:
+            print(f"Si è verificato un errore imprevisto: {e}")
+            
 sFile = r"C:\Users\nicol\OneDrive\Desktop\allrepo\Progetti\Python\Python\Python5_6\rest\automercato\operatori.json"
 sFile1=r"C:\Users\nicol\OneDrive\Desktop\allrepo\Progetti\Python\Python\Python5_6\rest\automercato\vendite_periodo.json"
 
@@ -131,10 +203,12 @@ def Motocicletta():
                 else:
                     while True:
                         print("1:Continua la ricerca.\n2:Exit")
-                        menu3={"1":Motocicletta,"2":Exit}
+                        menu3={"1":Motocicletta,"2":Ritorno}
                         scelta = input("Fai la scelta: ")
-                        if scelta == "1" or scelta == "2":
+                        if scelta == "1":
                             menu3[scelta]()
+                        elif scelta == "2":
+                            menu3[scelta](True)
                         else:
                             print("Scelta errata, riprova.")
             else:
@@ -173,10 +247,12 @@ def Automobile():
                 else:
                     while True:
                         print("1:Continua la ricerca.\n2:Exit")
-                        menu3={"1":Automobile,"2":Exit}
+                        menu3={"1":Automobile,"2":Ritorno}
                         scelta = input("Fai la scelta: ")
-                        if scelta == "1" or scelta == "2":
+                        if scelta == "1":
                             menu3[scelta]()
+                        elif scelta == "2":
+                            menu3[scelta](True)
                         else:
                             print("Scelta errata, riprova.")
             else:

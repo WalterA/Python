@@ -155,6 +155,47 @@ def controlloAuto():
 
 
 
+@api.route('/addop', methods=['PATCH'])
+def addop():
+    mydb = db.connect()
+    if mydb is None:
+        print("Errore connessione al DB")
+        sys.exit()
+    else:
+        print("Connessione al DB riuscita")
+        
+    content_type = request.headers.get('Content-Type')
+    if (content_type == 'application/json'):
+        try:
+            dati = request.json
+            filiale= dati.get("Filiale")
+            id = dati.get("Id") 
+            if not filiale or not id:
+                return {'Esito': 'errore', 'Messaggio': 'Parametri mancanti'}
+            sQueryCheck = f"SELECT id FROM filiale WHERE filiale = '{filiale}'"
+            fil = db.read_in_db(mydb, sQueryCheck)
+            if fil>0:
+                sQueryCheck = f"SELECT id FROM filiale WHERE id = '{id}'"
+                id1=db.read_in_db(mydb,sQueryCheck)
+                if id1 == 0:
+                    sQueryUpdate = f"INSERT INTO filiale (id, filiale) VALUES ('{id}', '{filiale}');"
+                    res=db.write_in_db(mydb, sQueryUpdate)
+                    if res ==0:
+                        return {'Esito': 'ok', 'Messaggio': 'Nuovo ID aggiunto alla filiale esistente'}
+                    else:
+                        return {'Esito': 'Errore'}
+                else:
+                    return (id + "Esistente")
+            else:
+                return {'Esito': 'errore', 'Messaggio': 'Non esiste la filiale'}, 500
+        except Exception as e:
+            print(f"Errore nella richiesta: {e}")
+            return {'Esito': 'errore', 'Messaggio': 'Errore nella richiesta'}, 500
+        finally:
+            db.close(mydb)
+    else:
+        db.close(mydb)
+        return {'Esito': 'errore', 'Messaggio': 'Content-Type non supportato'}, 415
 
 @api.route('/controllo_filiera', methods=['GET'])
 def controlloOP():

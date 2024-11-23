@@ -1,4 +1,22 @@
 {
+    "1": {
+        "data_vendita": "Fri, 01 Nov 2024 00:00:00 GMT",
+        "filiale": "Filiale 1",
+        "id": 1,
+        "tipo": "automobile"
+    },
+    "2": {
+        "data_vendita": "Sat, 02 Nov 2024 00:00:00 GMT",
+        "filiale": "Filiale 2",
+        "id": 2,
+        "tipo": "automobile"
+    },
+    "3": {
+        "data_vendita": "Sun, 03 Nov 2024 00:00:00 GMT",
+        "filiale": "Filiale 3",
+        "id": 3,
+        "tipo": "motocicletta"
+    },
     "4": {
         "data_vendita": "Mon, 04 Nov 2024 00:00:00 GMT",
         "filiale": "Filiale 1",
