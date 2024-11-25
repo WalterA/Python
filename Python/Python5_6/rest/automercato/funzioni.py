@@ -4,6 +4,7 @@ import requests
 import sys
 from myjson import *
 from datetime import datetime
+
 def Ritorno1():
     menu1 = {"1": Reg, "2": Acc, "3": Exit}
     while True:
