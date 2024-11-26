@@ -132,11 +132,11 @@ def RegistraOperatore (sFile):
             if response.status_code == 200:
                 data = response.json()
                 if data.get('Esito') == "ok":
-                    return data.get('Messaggio')
+                    print( data.get('Messaggio')) 
                 else:
-                    return data.get('Messaggio')
+                    print(data.get('Messaggio'))
             else:
-                return "Qualcosa è andato storto "+str(risultato)
+                print( "Qualcosa è andato storto "+str(risultato))
         except Exception as e:
             print(f"Si è verificato un errore imprevisto: {e}")
 
