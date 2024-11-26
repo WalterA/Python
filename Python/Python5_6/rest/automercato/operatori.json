@@ -52,17 +52,6 @@
         "Username": "Q",
         "Password": "Q1",
         "Filiale": "Filiale 3"
-    },
-    "10": {
-        "Id": "10",
-        "Username": "Qw",
-        "Password": "Q1",
-        "Filiale": "Filiale 2"
-    },
-    "11": {
-        "Id": "11",
-        "Username": "Q",
-        "Password": "Q1",
-        "Filiale": "Filiale 2"
     }
+
 }
