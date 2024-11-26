@@ -5,6 +5,9 @@ import requests
 import sys
 from myjson import *
 from datetime import datetime
+            
+sFile = r"/home/user/allrepo/Progetti/Python/Python/Python5_6/rest/automercato/operatori.json"
+sFile1=r"/home/user/allrepo/Progetti/Python/Python/Python5_6/rest/automercato/vendite_periodo.json"
 
 def Ritorno1():
     menu1 = {"1": Reg, "2": Acc,"3":addVeicolo, "4": Exit}
@@ -93,9 +96,9 @@ def Operatore():
 
     while True:
         password = input("Inserisci la password (almeno una lettera maiuscola e un numero): ")
-        # Controlla che la password abbia almeno una maiuscola e un numero
+        
         if re.search(r'[A-Z]', password) and re.search(r'\d', password):
-            break  # Esce dal ciclo se la password è valida
+            break  
         else:
             print("Errore: la password deve contenere almeno una lettera maiuscola e un numero.")
     id=str(id)
@@ -136,9 +139,6 @@ def RegistraOperatore (sFile):
                 return "Qualcosa è andato storto "+str(risultato)
         except Exception as e:
             print(f"Si è verificato un errore imprevisto: {e}")
-            
-sFile = r"C:\Users\nicol\OneDrive\Desktop\allrepo\Progetti\Python\Python\Python5_6\rest\automercato\operatori.json"
-sFile1=r"C:\Users\nicol\OneDrive\Desktop\allrepo\Progetti\Python\Python\Python5_6\rest\automercato\vendite_periodo.json"
 
 def valida_data(data_str):
     try:

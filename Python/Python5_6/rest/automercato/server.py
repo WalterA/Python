@@ -1,11 +1,10 @@
-from flask import Flask, json, request, render_template
-import random
-import os
+from flask import Flask, request
 import dbclient as db
 import sys
 from datetime import datetime
 
 api = Flask(__name__)
+
 @api.route('/addVeicolo', methods=['POST'])
 def AddMadre():
     mydb = db.connect()
