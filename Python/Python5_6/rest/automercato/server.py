@@ -1,10 +1,28 @@
-from flask import Flask, request
+from flask import Flask, app, json, request, render_template , redirect, url_for
+import random
+import os
 import dbclient as db
 import sys
 from datetime import datetime
 
-api = Flask(__name__)
+app = Flask(__name__)
 
+@app.route('/')
+def home():
+    return render_template('menu.html')
+
+@app.route('/menu2')
+def menu2():
+    return render_template('menu2.html')
+
+@app.route('/exit')
+def exit_program():
+    return redirect(url_for('home'))
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+api = Flask(__name__)
 @api.route('/addVeicolo', methods=['POST'])
 def AddMadre():
     mydb = db.connect()

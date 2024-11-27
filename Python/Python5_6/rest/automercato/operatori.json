@@ -1,57 +1,26 @@
 {
     "1": {
         "Id": "1",
-        "Username": "Walter",
-        "Password": "E1",
-        "Filiale": "Filiale 1"
+        "Username": "q",
+        "Password": "q",
+        "Filiare": "Filiale 1"
     },
     "2": {
         "Id": "2",
-        "Username": "Walter",
-        "Password": "Q1",
+        "Username": "w",
+        "Password": "w",
         "Filiale": "Filiale 2"
     },
     "3": {
         "Id": "3",
-        "Username": "Wa",
-        "Password": "E3",
+        "Username": "tre",
+        "Password": "T3",
         "Filiale": "Filiale 3"
     },
-    "5": {
-        "Id": "5",
-        "Username": "Qwe",
-        "Password": "Q2",
-        "Filiale": "Filiale 1"
-    },
-    "4": {
-        "Id": "4",
-        "Username": "Q",
-        "Password": "S1",
-        "Filiale": "Filiale 3"
-    },
-    "6": {
-        "Id": "6",
-        "Username": "Q",
-        "Password": "Q1",
-        "Filiale": "Filiale 3"
-    },
-    "7": {
-        "Id": "7",
-        "Username": "E",
-        "Password": "Q1",
-        "Filiale": "Filiale 2"
-    },
-    "8": {
-        "Id": "8",
-        "Username": "Q",
-        "Password": "A1",
-        "Filiale": "Filiale 1"
-    },
-    "9": {
-        "Id": "9",
-        "Username": "Q",
-        "Password": "Q1",
+    "12": {
+        "Id": "12",
+        "Username": "Sa",
+        "Password": "E2",
         "Filiale": "Filiale 3"
     }
-
 }

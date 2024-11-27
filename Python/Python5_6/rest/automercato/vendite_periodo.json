@@ -22,5 +22,11 @@
         "filiale": "Filiale 1",
         "id": 4,
         "tipo": "motocicletta"
+    },
+    "5": {
+        "data_vendita": "Tue, 05 Nov 2024 00:00:00 GMT",
+        "filiale": "Filiale 2",
+        "id": 5,
+        "tipo": "automobile"
     }
 }
