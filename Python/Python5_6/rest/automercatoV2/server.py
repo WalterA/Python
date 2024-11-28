@@ -1,101 +1,40 @@
-import sys
 from flask import Flask, app, json, request, render_template , redirect, url_for
-import Python.Python5_6.rest.automercatoV2.funzioni.dbclient as db
-
-
+import random
+import os
+from funzioni.dbclient import db
+import sys
+from datetime import datetime
+from funzioni.generiche import *
 
 app = Flask(__name__)
 
-# 1. API per aggiungere un veicolo (automobili o motociclette)
-@app.route('/addVeicolo', methods=['POST'])
-def add_veicolo():
-    mydb = db.connect()
-    if mydb is None:
-        print("Errore connessione al DB")
-        sys.exit()
-    else:
-        print("Connessione al DB riuscita")
-    
-    content_type = request.headers.get('Content-Type')
-    if content_type == 'application/json':
+@api.route('/addVeicolo', methods=['POST'])
+def Addveicolo():
+    mydb = Connessione()
+    if ControlloHeaders(mydb):
         try:
-            data = request.get_json()
-            tabella = data['tabella']
-            modello = data['modello']
-            filiale_id = data['Filiale']
-
-            if tabella not in ['automobili', 'motociclette']:
-                return {"Messaggio": "Tipo veicolo non valido"}
-            if tabella == "automobili":
-                sql_insert = f"INSERT INTO automobili (modello, magazzino) VALUES ('{modello}', {filiale_id});"
-            elif tabella == "motociclette":
-                sql_insert = f"INSERT INTO motociclette (modello, magazzino) VALUES ('{modello}', {filiale_id});"
+            dati = request.json
+            tabella = dati.get('tabella')
+            modello = dati.get('modello')
+            marca = dati.get("marca")
+            magazzino = dati.get('magazzino')
+            if tabella not in ["automobili", "motociclette"]:
+                return {'Esito': 'errore', 'Messaggio': 'Tabella non valida'}
+            if not id or not modello or not magazzino or not marca:
+                return {'Esito': 'errore', 'Messaggio': 'Parametri mancanti'}
             
-            result = db.write_in_db(mydb, sql_insert)
-
-            if result == 0:
-                return {"Messaggio": "Veicolo aggiunto con successo!"}
+            insert_query = f"INSERT INTO {tabella} (modello,marca, magazzino) VALUES ( '{modello}', {marca}', {magazzino});"
+            esito = db.write_in_db(mydb, insert_query)
+            if esito == 0:
+                return {'Esito': 'ok', 'Messaggio': 'Veicolo aggiunto correttamente'}
             else:
-                return {"Messaggio": "Errore durante l'inserimento del veicolo"}
+                return {'Esito': 'errore', 'Messaggio': 'Inserimento fallito'}
         except Exception as e:
             print(f"Errore nella richiesta: {e}")
             return {'Esito': 'errore', 'Messaggio': 'Errore durante l\'inserimento'}
         finally:
             db.close(mydb)
     else:
-        db.close(mydb)
         return {'Esito': 'errore', 'Messaggio': 'Content-Type non supportato'}
 
 
-# 2. API per verificare se una filiale esiste
-@app.route('/verificaFiliale', methods=['GET'])
-def verifica_filiale():
-    mydb = db.connect()
-    if mydb is None:
-        print("Errore connessione al DB")
-        sys.exit()
-    else:
-        print("Connessione al DB riuscita")
-    try:    
-        nome = request.args.get('nome')
-
-        sql_select = f"SELECT id FROM filiale WHERE nome = '{nome}';"
-        result = db.read_in_db(mydb, sql_select)
-        if result > 0:
-            return {"filiale_esistente": True}
-        else:
-            return {"filiale_esistente": False}
-    except Exception as e:
-            print(f"Errore nella richiesta: {e}")
-            return {'Esito': 'errore', 'Messaggio': 'Errore durante l\'inserimento'}
-    finally:
-        db.close(mydb)
-
-# 3. API per ottenere l'ID di una filiale
-@app.route('/getFilialeId', methods=['GET'])
-def get_filiale_id():
-    mydb = db.connect()
-    if mydb is None:
-        print("Errore connessione al DB")
-        sys.exit()
-    else:
-        print("Connessione al DB riuscita")
-    try:   
-        nome = request.args.get('nome')
-
-        sql_select = f"SELECT id FROM filiale WHERE nome = '{nome}';"
-        result = db.read_in_db(mydb, sql_select)
-
-        if result > 0:
-            
-            row = db.read_next_row(mydb)
-            
-            return {"id": row['id']}
-        else:
-            
-            return {"Messaggio": "Filiale non trovata"}
-    except Exception as e:
-            print(f"Errore nella richiesta: {e}")
-            return {'Esito': 'errore', 'Messaggio': 'Errore durante l\'inserimento'}
-    finally:
-        db.close(mydb)
