@@ -100,34 +100,29 @@ def RegistraOperatore (sFile):
 
     username = input("Inserisci l'username: ").title()
 
-    while True:
-        password = input("Inserisci la password (almeno una lettera maiuscola e un numero): ")
-        if re.search(r'[A-Z]', password) and re.search(r'\d', password):
-            break
-        else:
-            print("Errore: la password deve contenere almeno una lettera maiuscola e un numero.")
-    id=str(id)
-    filiale = input("Inserisci la tua filiale: ").capitalize()#fermo quiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
+    while ver:
+        password, ver = Password()
+
+    
+    filiale = input("Inserisci la tua filiale: ").capitalize()
     risultato =  JsonSerializeAppend({"Id":id,"Username":username,"Password":password,"Filiale": filiale},sFile)
     if risultato == 0:
         api_url = base_url + "/addop"
-        data={"Id":id,"Filiale": filiale}
+        data={"filiale":filiale}
         response= requests.patch(api_url,json=data,verify=False)
         try:
-            if response.status_code == 200:
-                data = response.json()
-                if data.get('Esito') == "ok":
-                    return data.get('Messaggio')
-                else:
-                    return data.get('Messaggio')
+            response, response_data = Response(api_url,data)
+            if response:
+                print(response_data.get('Messaggio'))
             else:
-                return "Qualcosa è andato storto "+str(risultato)
+                print(f"Errore HTTP: {response.status_code}")
         except Exception as e:
             print(f"Si è verificato un errore imprevisto: {e}")
             
 sFile = r"C:\Users\nicol\OneDrive\Desktop\allrepo\Progetti\Python\Python\Python5_6\rest\automercato\operatori.json"
 sFile1=r"C:\Users\nicol\OneDrive\Desktop\allrepo\Progetti\Python\Python\Python5_6\rest\automercato\vendite_periodo.json"
 
+#fermo qui
 def valida_data(data_str):
     try:
         

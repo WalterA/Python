@@ -36,5 +36,30 @@ def Addveicolo():
             db.close(mydb)
     else:
         return {'Esito': 'errore', 'Messaggio': 'Content-Type non supportato'}
+    
+
+@api.route('/addop', methods=['PATCH'])
+def addop():
+    mydb = Connessione()
+    if ControlloHeaders(mydb):
+        try:
+            dati = request.json
+            filiale = dati.get("filiale")
+            if not id or not filiale:
+                return {'Esito': 'errore', 'Messaggio': 'Parametri mancanti'}
+            
+            sQueryUpdate = f"INSERT INTO operatori (id_filiale) VALUES ((SELECT id FROM filiale WHERE nome = '{filiale}' LIMIT 1));"
+            res=db.write_in_db(mydb, sQueryUpdate)
+            if res ==0:
+                return {'Esito': 'ok', 'Messaggio': 'Nuovo ID aggiunto alla filiale esistente'}
+            else:
+                return {'Esito': 'Errore'}
+        except Exception as e:
+            print(f"Errore nella richiesta: {e}")
+            return {'Esito': 'errore', 'Messaggio': 'Errore durante l\'inserimento'}
+        finally:
+            db.close(mydb)
+    else:
+        return {'Esito': 'errore', 'Messaggio': 'Content-Type non supportato'}
 
 

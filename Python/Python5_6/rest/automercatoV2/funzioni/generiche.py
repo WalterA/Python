@@ -1,4 +1,5 @@
 
+import re
 import sys
 from flask import Flask, app, json, request, render_template , redirect, url_for
 import requests
@@ -41,4 +42,9 @@ def Response(api_url, data):
         return True , response_data
     else:
         return False
-        
+def Password():
+    password = input("Inserisci la password (almeno una lettera maiuscola e un numero): ")
+    if re.search(r'[A-Z]', password) and re.search(r'\d', password):
+        return password ,False
+    else:
+        print("Errore: la password deve contenere almeno una lettera maiuscola e un numero."), True
