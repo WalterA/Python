@@ -23,6 +23,7 @@ if __name__ == '__main__':
     app.run(debug=True)
 
 api = Flask(__name__)
+
 @api.route('/addVeicolo', methods=['POST'])
 def AddMadre():
     mydb = db.connect()
@@ -85,7 +86,7 @@ def Controlla():
         try:
             inizio= request.json.get('inizio')
             fine = request.json.get('fine')
-            sQuery=f"select * from vendite where data_vendita between '{inizio}' and '{fine}';"
+            sQuery=f"select * from vendite where data_vendita between '{inizio}' and '{fine}';"+
             iRetValue = db.read_in_db(mydb, sQuery)
             if iRetValue > 0:
                 sValue = db.read_next_row(mydb)
@@ -199,7 +200,7 @@ def controlloAuto():
             iRetValue = db.read_in_db(mydb, sQuery)
             print(iRetValue)
             
-            if iRetValue == 1:
+            if iRetValue == 0:
                 sValue = db.read_next_row(mydb)
                 
                 return {'Esito': 'ok', "dati": sValue}
