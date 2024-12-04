@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Chiedi a Google Gemini</title>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #6a82fb 0%, #fc5c7d 100%);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+    }
+
+    .container {
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        max-width: 700px;
+        width: 100%;
+        animation: fadeIn 1s ease-in-out;
+    }
+
+    h1 {
+        text-align: center;
+        color: #ff5c00;
+        font-size: 2.5em;
+        margin-bottom: 20px;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    label {
+        font-weight: bold;
+        color: #333;
+        margin-top: 15px;
+        font-size: 1.1em;
+    }
+
+    textarea {
+        padding: 12px;
+        margin-top: 8px;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        font-size: 1em;
+        transition: border-color 0.3s ease;
+    }
+
+    .drop-area {
+        border: 2px dashed #ff5c00;
+        border-radius: 8px;
+        padding: 20px;
+        text-align: center;
+        margin-top: 10px;
+        transition: background-color 0.3s ease;
+        color: #555;
+    }
+
+    .drop-area.hover {
+        background-color: #f9f9f9;
+    }
+
+    #image-preview {
+        display: none;
+        margin-top: 15px;
+        max-width: 100%;
+        border-radius: 8px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    input[type="submit"] {
+        margin-top: 20px;
+        padding: 12px;
+        background-color: #ff5c00;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 1.2em;
+        transition: background-color 0.3s ease;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #e67e00;
+    }
+
+    textarea:focus {
+        border-color: #ff5c00;
+        outline: none;
+    }
+
+    .file-name {
+        margin-top: 5px;
+        color: #555;
+        font-size: 0.9em;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2em;
+        }
+
+        input[type="submit"] {
+            font-size: 1.1em;
+        }
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <h1>Chiedi a Gemini AI</h1>
+        <form id="geminiForm" action="mansendfile" method="post" enctype="multipart/form-data">
+            <label for="question">La tua domanda:</label>
+            <textarea id="question" name="question" rows="4" placeholder="Scrivi qui la tua domanda per Gemini AI..." required></textarea>
+
+            <label for="file-upload">Scegli un'immagine o trascinala qui:</label>
+            <div class="drop-area" id="drop-area" ondrop="dropHandler(event)" ondragover="dragOverHandler(event)">
+                <p>Trascina qui il tuo file o clicca per selezionarlo</p>
+                <input type="file" id="file-upload" name="image" accept="image/*" onchange="handleFileInput(event)" style="display: none;">
+                <button type="button" onclick="document.getElementById('file-upload').click();" style="background: none; border: none; color: #ff5c00; cursor: pointer; text-decoration: underline;">Seleziona File</button>
+            </div>
+
+            <img id="image-preview" alt="Anteprima immagine">
+
+            <label for="gemini-response">Risposta di Gemini:</label>
+            <textarea id="gemini-response" name="gemini-response" rows="4" placeholder="La risposta di Gemini apparirà qui..." readonly></textarea>
+
+            <input type="submit" value="INVIA">
+        </form>
+    </div>
+
+    <script>
+        function dropHandler(event) {
+            event.preventDefault();
+            const files = event.dataTransfer.files;
+            if (files.length > 0) {
+                const file = files[0];
+                if (file.type.startsWith('image/')) {
+                    displayImagePreview(file);
+                } else {
+                    alert("Per favore carica solo un'immagine.");
+                }
+            }
+        }
+
+        function dragOverHandler(event) {
+            event.preventDefault();
+            const dropArea = document.getElementById('drop-area');
+            dropArea.classList.add('hover');
+        }
+
+        function dragLeaveHandler(event) {
+            const dropArea = document.getElementById('drop-area');
+            dropArea.classList.remove('hover');
+        }
+
+        function handleFileInput(event) {
+            const file = event.target.files[0];
+            if (file) {
+                displayImagePreview(file);
+            }
+        }
+
+        function displayImagePreview(file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = document.getElementById('image-preview');
+                img.src = e.target.result;
+                img.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
+    </script>
+</body>
+</html>
